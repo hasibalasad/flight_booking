@@ -1,10 +1,31 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { book } from '../../redux/Book/actionCreator';
 
 function InputSection() {
+    const books = useSelector(state => state);
+    const dispatch = useDispatch();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const formElement = e.target;
+        const formData = {}
+        for (let i = 0; i < formElement.elements.length; i++) {
+            const element = formElement.elements[i];
+            if (element.name) {
+                formData[element.name] = element.value;
+            }
+        }
+        dispatch(book(formData));
+        formElement.reset();
+    }
+
+
     return (
         <div className="mt-[160px] mx-4 md:mt-[160px] relative">
             <div className="bg-white rounded-md max-w-6xl w-full mx-auto">
-                <form className="first-hero lws-inputform">
+                <form className="first-hero lws-inputform" onSubmit={handleSubmit}>
                     {/* <!-- From --> */}
                     <div className="des-from">
                         <p>Destination From</p>
@@ -69,7 +90,7 @@ function InputSection() {
                         </div>
                     </div>
 
-                    <button className="addCity" type="submit" id="lws-addCity">
+                    <button className="addCity" type="submit" id="lws-addCity" disabled={books.length >= 3}>
                         <svg width="15px" height="15px" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>

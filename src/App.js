@@ -1,23 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-
+import { Provider } from 'react-redux';
 import Header from './components/Header/Header';
 import Booklist from './components/Section/Booklist';
 import InputSection from './components/Section/InputSection';
 import './style.css'
+import { store } from './redux/store';
 
 function App() {
     return (
-        <body>
+        <Provider store={store}>
+            <body>
 
-            <Header />
+                <Header />
 
-            <section>
-                <InputSection />
-                <Booklist />
-            </section>
+                <section>
+                    <InputSection />
+                    <Booklist />
+                </section>
 
-        </body>
+            </body>
+        </Provider>
     );
 }
 

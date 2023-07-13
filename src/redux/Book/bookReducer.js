@@ -9,7 +9,10 @@ const bookReducer = (state = initialState, action) => {
     switch (action.type) {
         case BOOK:
             const lastBookId = copiedState[copiedState.length - 1]?.id;
-            const newBook = { ...action.payload, id: lastBookId ? (lastBookId + 1) : 1 };
+            const newBook = {
+                ...action.payload,
+                id: lastBookId ? (lastBookId + 1) : 1
+            };
             copiedState.push(newBook);
             return copiedState;
 
